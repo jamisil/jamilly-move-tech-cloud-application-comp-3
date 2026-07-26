@@ -14,6 +14,8 @@ spec:
       labels:
         app: cloud-application
     spec:
+      imagePullSecrets:
+      - name: mgc-registry-secret
       containers:
       - name: cloud-application
         image: container-registry.br-ne1.magalu.cloud/cloud-application-registry/cloud-application:latest
