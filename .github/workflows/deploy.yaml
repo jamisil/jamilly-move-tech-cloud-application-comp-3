@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
 
 env:
-  REGISTRY: container-registry.br-se1.magalu.cloud
+  REGISTRY: container-registry.br-ne1.magalu.cloud
   IMAGE_NAME: cloud-application
 
 jobs:
