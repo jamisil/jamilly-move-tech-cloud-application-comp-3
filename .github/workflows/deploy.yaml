@@ -51,6 +51,6 @@ jobs:
       run: |
         export KUBECONFIG=kubeconfig.yaml
         export MGC_REGISTRY_NAME=${{ secrets.MGC_REGISTRY_NAME }}
-        envsubst < k8s/app.yaml | kubectl apply -f -
+        envsubst '$MGC_REGISTRY_NAME' < k8s/app.yaml | kubectl apply -f -
         kubectl rollout status deployment/cloud-application
 
