@@ -40,9 +40,10 @@ jobs:
       - name: Configurar kubectl
         run: |
           echo "${{ secrets.MGC_KUBECONFIG }}" > kubeconfig.yaml
+          kubectl config set-cluster default --insecure-skip-tls-verify=true --kubeconfig=kubeconfig.yaml
       - name: Deploy no Kubernetes
         run: |
           export KUBECONFIG=kubeconfig.yaml
           export MGC_REGISTRY_NAME=${{ secrets.MGC_REGISTRY_NAME }}
-          envsubst < k8s/app.yaml | kubectl apply -f -
-          kubectl rollout status deployment/cloud-application
+          envsubst < k8s/app.yaml | kubectl apply --insecure-skip-tls-verify=true -f -
+          kubectl rollout status deployment/cloud-application --insecure-skip-tls-verify=true
