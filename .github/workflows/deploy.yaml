@@ -41,6 +41,13 @@ jobs:
         run: |
           echo "${{ secrets.MGC_KUBECONFIG }}" > kubeconfig.yaml
           kubectl config set-cluster default --insecure-skip-tls-verify=true --kubeconfig=kubeconfig.yaml
+      - name: Criar Secret do banco
+        run: |
+          export KUBECONFIG=kubeconfig.yaml
+          kubectl create secret generic db-secret \
+            --from-literal=url=${{ secrets.DATABASE_URL }} \
+            --dry-run=client -o yaml | kubectl apply -f -
+
       - name: Deploy no Kubernetes
         run: |
           export KUBECONFIG=kubeconfig.yaml
